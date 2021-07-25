@@ -21,11 +21,10 @@ class LIFOCache(BaseCaching):
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             last = list(self.cache_data)[-2]
             print('DISCARD:', last)
-            self.cache_data.pop(last)  
+            self.cache_data.pop(last)
 
     def get(self, key):
         """return the value in self.cache_data linked to key"""
         if key is None:
             return None
         return self.cache_data.get(key)
- 
