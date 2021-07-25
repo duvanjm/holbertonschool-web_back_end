@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""module"""
+"""LRUCache is caching system"""
 
 from base_caching import BaseCaching
 
