@@ -41,13 +41,13 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(403)
-def forbiden(error):
+def forbiden(error) -> str:
     """forbiden handler"""
     return jsonify({"error": "Forbidden"})
 
 
 @app.before_request
-def before_req():
+def before_req() -> None:
     """method to handler before_request"""
     if auth is None:
         return
