@@ -18,9 +18,9 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
 
-if os.getenv('AUTH_TYPE') == 'basic_auth':
+if os.getenv("AUTH_TYPE") == 'basic_auth':
     auth = BasicAuth()
-if os.getenv('AUTH_TYPE') == 'session_auth':
+elif os.getenv("AUTH_TYPE") == 'session_auth':
     auth = SessionAuth()
 else:
     auth = Auth()
@@ -46,7 +46,7 @@ def forbiden(error) -> str:
 
 
 @app.before_request
-def before_req() -> None:
+def before_req():
     """method to handler before_request"""
     if auth is None:
         return
@@ -57,11 +57,12 @@ def before_req() -> None:
 
     if not auth.require_auth(request.path, req_list):
         return
-    if auth.authorization_header(request) is None:
+    if auth.authorization_header(request) is None and \
+            auth.session_cookie(request) is None:
         abort(401)
+    request.current_user = auth.current_user(request)
     if auth.current_user(request) is None:
         abort(403)
-    request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
