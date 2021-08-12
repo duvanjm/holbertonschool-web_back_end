@@ -21,8 +21,9 @@ class SessionExpAuth(SessionAuth):
     def create_session(self, user_id=None):
         """Create a Session ID by calling super()
         Return None if super() can’t create a Session ID"""
-        session_id = super().create_session(user_id)
-        if not session_id:
+        try:
+            session_id = super().create_session(user_id)
+        except Exception:
             return None
         session_dictionary = {
             'user_id': user_id,
