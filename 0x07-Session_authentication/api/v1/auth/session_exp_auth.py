@@ -40,8 +40,8 @@ class SessionExpAuth(SessionAuth):
         if session_id not in self.user_id_for_session_id:
             return None
         if self.session_duration == 0:
-            return self.session_dictionary.get('user_id')
-        if self.created_at not in self.session_dictionary:
+            return self.user_id_for_session_id.get('user_id')
+        if self.created_at not in self.user_id_for_session_id:
             return None
         created = self.user_id_for_session_id.get('created_at')
         time_delta = timedelta(seconds=self.session_duration)
