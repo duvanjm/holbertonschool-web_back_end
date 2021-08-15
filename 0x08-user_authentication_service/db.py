@@ -8,7 +8,8 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 
-from user import Base, User
+from user import Base
+from user import User
 
 
 class DB:
@@ -33,7 +34,7 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """returns a User object."""
+        """returns a User object save the user to the database."""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
