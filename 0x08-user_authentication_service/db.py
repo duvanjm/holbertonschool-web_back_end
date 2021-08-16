@@ -66,7 +66,6 @@ class DB:
         for k, v in kwargs.items():
             if k in users:
                 setattr(find, k, v)
-            else:
-                raise ValueError
+            raise ValueError
         self._session.commit()
         return None
