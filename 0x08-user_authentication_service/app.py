@@ -50,9 +50,9 @@ def login() -> str:
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout() -> None:
     """destroy the session and redirect the user to GET /"""
-    sesion_id = request.cookies.get('session_id')
-    if sesion_id:
-        user_id = AUTH.get_user_from_session_id(sesion_id)
+    session_id = request.cookies.get('session_id')
+    if session_id:
+        user_id = AUTH.get_user_from_session_id(session_id)
         if user_id:
             AUTH.destroy_session(user_id.id)
             return redirect(url_for('message'))
