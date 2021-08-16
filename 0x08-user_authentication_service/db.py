@@ -63,10 +63,10 @@ class DB:
         users = [
             'id', 'email', 'hashed_password',
             'session_id', 'reset_token']
-        for k, v in kwargs.items():
-            if k in users:
-                setattr(find, k, v)
-            if k not in users:
+        for key, value in kwargs.items():
+            if hasattr(find, key):
+                setattr(find, key, value)
+            else:
                 raise ValueError
         self._session.commit()
         return None
