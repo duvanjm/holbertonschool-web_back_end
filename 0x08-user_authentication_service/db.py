@@ -50,7 +50,7 @@ class DB:
         for item in kwargs:
             if item not in users:
                 raise InvalidRequestError
-        search = self.__session.query(User).filter_by(**kwargs).first()
+        search = self._session.query(User).filter_by(**kwargs).first()
         if search:
             return search
         else:
