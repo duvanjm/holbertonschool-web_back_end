@@ -64,8 +64,9 @@ class DB:
             'id', 'email', 'hashed_password',
             'session_id', 'reset_token']
         for k, v in kwargs.items():
+            if k not in users:
+                raise ValueError
             if k in users:
                 setattr(find, k, v)
-            raise ValueError
         self._session.commit()
         return None
