@@ -53,6 +53,14 @@ class Auth:
         except Exception:
             return None
 
+    def destroy_session(self, user_id: int) -> None:
+        """Destroy session """
+        try:
+            find = self._db.find_user_by(id=user_id)
+            self._db.update_user(user_id, None)
+        except Exception:
+            return None
+
 
 def _hash_password(password: str) -> str:
     """returned bytes is a
