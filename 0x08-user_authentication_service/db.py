@@ -53,7 +53,8 @@ class DB:
         search = self.__session.query(User).filter_by(**kwargs).first()
         if search:
             return search
-        raise NoResultFound
+        else:
+            raise NoResultFound
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """The method will use find_user_by
