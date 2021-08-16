@@ -53,7 +53,7 @@ class DB:
         try:
             search = self._session.query(User).filter_by(**kwargs).first()
         except ValueError:
-            raise 
+            raise InvalidRequestError
         if search:
             return search
         else:
