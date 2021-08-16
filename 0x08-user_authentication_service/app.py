@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """set up a basic Flask app"""
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from werkzeug.wrappers import response
 from auth import Auth
 
@@ -44,6 +44,18 @@ def login() -> str:
             return response
         except Exception:
             return None
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """destroy the session and redirect the user to GET /"""
+    sesion_id = request.cookies.get('session_id')
+    try:
+        user_id = AUTH.get_user_from_session_id(sesion_id)
+        AUTH.destroy_session(user_id.id)
+        return redirect('/')
+    except Exception:
+        abort(401)
 
 
 if __name__ == "__main__":
