@@ -2,6 +2,7 @@
 """set up a basic Flask app"""
 
 from flask import Flask, jsonify, request, abort, redirect
+from flask.helpers import url_for
 from werkzeug.wrappers import response
 from auth import Auth
 
@@ -54,7 +55,7 @@ def logout():
         user_id = AUTH.get_user_from_session_id(sesion_id)
         if user_id:
             AUTH.destroy_session(user_id.id)
-            return redirect('/')
+            return redirect(url_for('message'))
     else:
         abort(403)
 
