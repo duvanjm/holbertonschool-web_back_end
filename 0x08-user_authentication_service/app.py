@@ -48,7 +48,7 @@ def login() -> str:
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
-def logout():
+def logout() -> None:
     """destroy the session and redirect the user to GET /"""
     sesion_id = request.cookies.get('session_id')
     if sesion_id:
