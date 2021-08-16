@@ -54,3 +54,17 @@ class DB:
         if search:
             return search
         raise NoResultFound
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """The method will use find_user_by
+        to locate the user to update"""
+        find = self.find_user_by(id=user_id)
+        users = [
+            'id', 'email', 'hashed_password',
+            'session_id', 'reset_token']
+        for key, val in kwargs.items():
+            if key in users:
+                setattr(find, key, val)
+            else:
+                raise ValueError
+        self._session.commit()
