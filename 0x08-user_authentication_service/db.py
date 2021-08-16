@@ -5,8 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base
 from user import User
@@ -64,9 +64,9 @@ class DB:
             'id', 'email', 'hashed_password',
             'session_id', 'reset_token']
         for k, v in kwargs.items():
-            if k not in users:
-                raise ValueError
             if k in users:
                 setattr(find, k, v)
+            if k not in users:
+                raise ValueError
         self._session.commit()
         return None
