@@ -36,7 +36,7 @@ def login() -> str:
         abort(401)
     else:
         sesion_id = AUTH.create_session(email)
-        response = jsonify({"email": email, "message": "logged in"})
+        response = jsonify({"email": email, "message": "logged in"}), 200
         response.set_cookie('sesion_id', sesion_id)
         return response
 
@@ -60,7 +60,7 @@ def profile():
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
         if user is not None:
-            return jsonify({"email": user.email})
+            return jsonify({"email": user.email}), 200
     return abort(403)
 
 
@@ -72,9 +72,23 @@ def reset_pwd():
         find = AUTH._db.find_user_by(email=email)
         if find:
             token = AUTH.get_reset_password_token(email)
-            return jsonify({"email": email, "reset_token": token})
+            return jsonify({"email": email, "reset_token": token}), 200
     except NoResultFound:
         return None
+
+
+@app.route('/reset_password', methods=['PUT'])
+def reset_passwd():
+    """Update the password"""
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    new_password = request.form.get('new_password')
+
+    try:
+        AUTH.update_password(reset_token, new_password)
+        return jsonify({"email": email, "message": "Password updated"}), 200
+    except Exception:
+        return abort(403)
 
 
 if __name__ == "__main__":
