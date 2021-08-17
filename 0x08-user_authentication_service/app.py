@@ -9,14 +9,14 @@ AUTH = Auth()
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def message() -> str:
-    """return a JSON payload
-    return a message"""
+    """ return a JSON payload
+    return a message """
     return jsonify({"message": "Bienvenue"}), 200
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def register() -> str:
-    """end-point to register a new user."""
+    """ end-point to register a new user. """
     email = request.form.get('email')
     password = request.form.get('password')
     try:
@@ -28,7 +28,7 @@ def register() -> str:
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """login, create a new session for the user"""
+    """ login, create a new session for the user """
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -43,7 +43,7 @@ def login() -> str:
 
 @app.route('/sessions', methods=["DELETE"])
 def logout():
-    """destry session, logout """
+    """ destry session, logout """
     session_id = request.cookies.get('session_id')
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
@@ -55,8 +55,8 @@ def logout():
 
 @app.route('/profile')
 def profile():
-    """End point to acces user's profile
-    methods GET arguments None"""
+    """ End point to acces user's profile
+    methods GET arguments None """
     session_id = request.cookies.get('session_id')
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
@@ -67,7 +67,7 @@ def profile():
 
 @app.route('/reset_password', methods=['POST'])
 def reset_pwd():
-    """respond to the POST /reset_password route."""
+    """ respond to the POST /reset_password route. """
     email = request.form.get('email')
     try:
         find = AUTH._db.find_user_by(email=email)
@@ -80,7 +80,7 @@ def reset_pwd():
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def reset_passwd():
-    """Update the user's password"""
+    """ Update the user's password """
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
