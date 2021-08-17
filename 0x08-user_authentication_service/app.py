@@ -42,7 +42,7 @@ def login() -> str:
 
 @app.route('/sessions', methods=["DELETE"])
 def logout():
-    """destroy the session and redirect the user to GET /"""
+    """destry session, logout """
     session_id = request.cookies.get('session_id')
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
@@ -54,6 +54,8 @@ def logout():
 
 @app.route('/profile')
 def profile():
+    """End point to acces user's profile
+    methods GET arguments None"""
     session_id = request.cookies.get('session_id')
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
