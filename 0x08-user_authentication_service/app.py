@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """Set up a basic Flask app"""
 from auth import Auth
-from flask import abort, Flask, jsonify, redirect, request
+from flask import (
+                   Flask, jsonify, request, abort,
+                   make_response,
+                   redirect
+)
+from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
+
+
 app = Flask(__name__)
 AUTH = Auth()
 
@@ -56,7 +63,8 @@ def logout():
 @app.route('/profile', methods=['GET'])
 def profile():
     """ End point to acces user's profile
-    methods GET arguments None """
+    methods GET arguments None
+    User profile """
     session_id = request.cookies.get('session_id')
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
