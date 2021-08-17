@@ -42,31 +42,15 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """returns the first row found in the users table"""
-        if not kwargs:
-            return InvalidRequestError
-        users = [
-            'id', 'email', 'hashed_password',
-            'session_id', 'reset_token']
-        for item in kwargs:
-            if item not in users:
-                raise InvalidRequestError
-        search = self._session.query(User).filter_by(**kwargs).first()
-        if search:
-            return search
-        else:
-            raise NoResultFound
+        return self._session.query(User).filter_by(**kwargs).one()
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """The method will use find_user_by
         to locate the user to update"""
         find = self.find_user_by(id=user_id)
-        users = [
-            'id', 'email', 'hashed_password',
-            'session_id', 'reset_token']
         for key, value in kwargs.items():
-            if hasattr(find, key):
-                setattr(find, key, value)
-            else:
+            if not hasattr(find, key):
                 raise ValueError
+            setattr(find, key, value)
         self._session.commit()
         return None
