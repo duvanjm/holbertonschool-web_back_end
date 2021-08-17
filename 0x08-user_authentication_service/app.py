@@ -61,7 +61,7 @@ def profile():
     if session_id is not None:
         user = AUTH.get_user_from_session_id(session_id)
         if user is not None:
-            return jsonify({"email": user.email}), 200
+            return jsonify({"email": user.email})
     return abort(403)
 
 
