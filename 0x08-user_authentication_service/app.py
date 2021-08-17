@@ -42,7 +42,7 @@ def login() -> str:
             response.set_cookie('sesion_id', sesion_id)
             return response
         except Exception:
-            abort(401)
+            return None
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
@@ -55,6 +55,18 @@ def logout():
         return redirect("/")
     else:
         abort(403)
+
+
+@app.route('/profile', methods=['GET'], strict_slashes=False)
+def profile():
+    """User profile """
+    session_id = request.cookies.get('session_id')
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            return jsonify({"email": user.email}), 200
+    else:
+        return None
 
 
 if __name__ == "__main__":
