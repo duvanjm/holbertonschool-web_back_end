@@ -56,7 +56,7 @@ def logout() -> None:
         abort(403)
 
 
-@app.route('/profile', strict_slashes=False)
+@app.route('/profile')
 def profile() -> str:
     """User profile
     if user exists retunr 200 http status"""
