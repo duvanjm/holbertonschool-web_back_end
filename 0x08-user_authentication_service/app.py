@@ -53,7 +53,7 @@ def logout():
     return abort(403)
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET'])
 def profile():
     """ End point to acces user's profile
     methods GET arguments None """
