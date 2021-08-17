@@ -87,7 +87,7 @@ def reset_passwd():
     try:
         AUTH.update_password(reset_token, new_password)
         return jsonify({"email": email, "message": "Password updated"}), 200
-    except Exception:
+    except NoResultFound:
         return abort(403)
 
 
