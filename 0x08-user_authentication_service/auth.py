@@ -81,6 +81,7 @@ class Auth:
             if find:
                 password = _hash_password(password)
                 self._db.update_user(find.id, hashed_password=password)
+                self._db.update_user(find.id, reset_token=None)
         except NoResultFound:
             raise ValueError
         return None
