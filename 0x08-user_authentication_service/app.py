@@ -54,21 +54,15 @@ def logout():
 
 
 @app.route('/profile')
-def profile() -> str:
+def profile():
     """User profile
     if user exists retunr 200 http status"""
     session_id = request.cookies.get('session_id')
-    if session_id:
-        try:
-            user = AUTH.get_user_from_session_id(session_id)
-            if user:
-                return jsonify({"email": user.email}), 200
-            else:
-                abort(403)
-        except NoResultFound:
-            abort(403)
-    else:
-        abort(403)
+    if session_id is not None:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user is not None:
+            return jsonify({"email": user.email}), 200
+    return abort(403)
 
 
 if __name__ == "__main__":
