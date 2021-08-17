@@ -83,6 +83,7 @@ class Auth:
                 self._db.update_user(find.id, hashed_password=password)
         except NoResultFound:
             raise ValueError
+        return None
 
 
 def _hash_password(password: str) -> str:
