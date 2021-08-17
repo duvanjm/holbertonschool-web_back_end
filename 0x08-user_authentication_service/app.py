@@ -2,8 +2,6 @@
 """set up a basic Flask app"""
 
 from flask import Flask, jsonify, request, abort, redirect
-from flask.helpers import url_for
-from werkzeug.wrappers import response
 from auth import Auth
 
 
