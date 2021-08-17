@@ -49,11 +49,10 @@ def login() -> str:
 def logout():
     """destroy the session and redirect the user to GET /"""
     session_id = request.cookies.get('session_id')
-    if session_id:
-        user_id = AUTH.get_user_from_session_id(session_id)
-        if user_id:
-            AUTH.destroy_session(user_id.id)
-            return redirect("/")
+    user_id = AUTH.get_user_from_session_id(session_id)
+    if user_id and session_id:
+        AUTH.destroy_session(user_id.id)
+        return redirect("/")
     else:
         abort(403)
 
