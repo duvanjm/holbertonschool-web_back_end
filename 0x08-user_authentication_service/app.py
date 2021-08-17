@@ -2,7 +2,6 @@
 """set up a basic Flask app"""
 from auth import Auth
 from flask import abort, Flask, jsonify, redirect, request
-from flask.helpers import make_response
 from sqlalchemy.orm.exc import NoResultFound
 app = Flask(__name__)
 AUTH = Auth()
@@ -77,9 +76,9 @@ def reset_pwd():
         return None
 
 
-@app.route('/reset_password', methods=['PUT'])
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def reset_passwd():
-    """Update the password"""
+    """Update the user's password"""
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
