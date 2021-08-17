@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""set up a basic Flask app"""
+"""Set up a basic Flask app"""
 from auth import Auth
 from flask import abort, Flask, jsonify, redirect, request
 from sqlalchemy.orm.exc import NoResultFound
@@ -9,13 +9,14 @@ AUTH = Auth()
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def message() -> str:
-    """return a JSON payload"""
+    """return a JSON payload
+    return a message"""
     return jsonify({"message": "Bienvenue"}), 200
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def register() -> str:
-    """end-point to register a user."""
+    """end-point to register a new user."""
     email = request.form.get('email')
     password = request.form.get('password')
     try:
@@ -27,7 +28,7 @@ def register() -> str:
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """create a new session for the user"""
+    """login, create a new session for the user"""
     email = request.form.get('email')
     password = request.form.get('password')
 
