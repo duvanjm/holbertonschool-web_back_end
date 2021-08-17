@@ -42,7 +42,7 @@ def login() -> str:
             response.set_cookie('sesion_id', sesion_id)
             return response
         except Exception:
-            return None
+            abort(401)
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
