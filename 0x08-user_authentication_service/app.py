@@ -36,13 +36,10 @@ def login() -> str:
     if AUTH.valid_login(email, password) is False:
         abort(401)
     else:
-        try:
-            sesion_id = AUTH.create_session(email)
-            response = jsonify({"email": email, "message": "logged in"})
-            response.set_cookie('sesion_id', sesion_id)
-            return response
-        except Exception:
-            return None
+        sesion_id = AUTH.create_session(email)
+        response = jsonify({"email": email, "message": "logged in"})
+        response.set_cookie('sesion_id', sesion_id)
+        return response
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
