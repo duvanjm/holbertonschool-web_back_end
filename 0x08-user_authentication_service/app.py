@@ -15,14 +15,14 @@ AUTH = Auth()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def message() -> str:
+def message():
     """ return a JSON payload
     return a message """
     return jsonify({"message": "Bienvenue"}), 200
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def register() -> str:
+def register():
     """ end-point to register a new user. """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -34,7 +34,7 @@ def register() -> str:
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login() -> str:
+def login():
     """ login, create a new session for the user """
     email = request.form.get('email')
     password = request.form.get('password')
