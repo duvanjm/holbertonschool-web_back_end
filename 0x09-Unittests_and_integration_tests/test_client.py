@@ -2,7 +2,6 @@
 """class to test clients module"""
 
 import unittest
-from unittest import mock
 from unittest.mock import patch, PropertyMock
 from client import GithubOrgClient
 from parameterized import parameterized
@@ -51,3 +50,4 @@ class TestGithubOrgClient(unittest.TestCase):
         """test has license method"""
         fn = GithubOrgClient.has_license(repo, license)
         self.assertEqual(fn, expected)
+
