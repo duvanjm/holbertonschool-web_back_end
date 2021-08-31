@@ -9,13 +9,26 @@ from functools import wraps
 
 def count_calls(method: Callable) -> Callable:
     """Incrementing values """
-    key = method.__qualname__ 
+    key = method.__qualname__
 
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """Incrementing values"""
         self._redis.incr(key)
         return method(self, *args, **kwds)
+    return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """Storing lists """
+    inp = method.__qualname__ + ':inputs'
+    out = method.__qualname__ + ':outputs'
+
+    @wraps(method)
+    def wrapper(self, *args, **kwds):
+        """Storing lists """
+        self._redis.rpush(inp, str(args))
+        return self._redis.rpush(out, method(self, *args, **kwds))
     return wrapper
 
 
@@ -27,6 +40,7 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """generate a random key"""
