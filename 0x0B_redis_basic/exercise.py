@@ -2,7 +2,7 @@
 """Writing strings to Redis """
 
 import redis
-from typing import Union, Callable, Optional
+from typing import Union, Callable
 from uuid import uuid4
 from functools import wraps
 
@@ -63,4 +63,4 @@ class Cache():
     def get_int(self, number: int) -> int:
         """ parametrize Cache.get with
         the correct conversion function"""
-        return int(number)
+        return int(self._redis.get(number))
