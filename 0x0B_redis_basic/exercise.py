@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Writing strings to Redis """
 
-from redis.client import Redis
+import redis
 from uuid import uuid4
 
 
@@ -10,7 +10,7 @@ class Cache():
 
     def __init__(self) -> None:
         """init method"""
-        self._redis = Redis()
+        self._redis = redis.Redis()
         self._redis.flushdb()
 
     def store(self, data: bytes) -> str:
