@@ -16,5 +16,5 @@ class Cache():
     def store(self, data: bytes) -> str:
         """generate a random key"""
         key = str(uuid4())
-        self._redis.set(key, data)
+        self._redis.mset({key: data})
         return key
