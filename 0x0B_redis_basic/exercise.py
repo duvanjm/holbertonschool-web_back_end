@@ -28,7 +28,8 @@ def call_history(method: Callable) -> Callable:
     def wrapper(self, *args, **kwds):
         """Storing lists """
         self._redis.rpush(inp, str(args))
-        return self._redis.rpush(out, method(self, *args, **kwds))
+        rtn_method = method(self, *args, **kwds)
+        return self._redis.rpush(out, str(rtn_method))
     return wrapper
 
 
