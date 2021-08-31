@@ -60,7 +60,7 @@ class Cache():
         the correct conversion function"""
         return str(data.encode('utf-8'))
 
-    def get_int(self, number: int) -> int:
+    def get_int(self, number: str) -> int:
         """ parametrize Cache.get with
         the correct conversion function"""
-        return int(self._redis.get(number))
+        return int(number)
