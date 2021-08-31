@@ -35,4 +35,3 @@ class Cache():
         """ parametrize Cache.get with
         the correct conversion function"""
         return int(number)
-
