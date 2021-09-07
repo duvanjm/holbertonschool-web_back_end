@@ -17,7 +17,7 @@ delete = col.count_documents({"method": "DELETE"})
 status = col.count_documents({"method": "GET", "path": "/status"})
 
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     print(f"{logs} logs")
     print("Methods:")
     print(f"\tmethod GET: {get}")
