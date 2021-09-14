@@ -1,9 +1,9 @@
 export default function handleResponseFromAPI(promise) {
   promise
-    .then(() => (({
+    .then(() => ({
       status: 200,
       body: 'success',
-    })))
+    }))
     .catch(() => {
       Error();
     })
