@@ -1,15 +1,19 @@
-function calculateNumber(type, a, b) {
-  if (type === 'SUM') {
-    return Math.round(a) + Math.round(b);
-  } if (type === 'SUBTRACT') {
-    return Math.round(a) - Math.round(b);
-  } if (type === 'DIVIDE') {
-    if (b === 0) {
-      return ('Error');
-    } else {
-      return Math.round(a) / Math.round(b);
-    }
-  }
-}
+module.exports = function calculateNumber (type, a, b) {
+  const numA = Number(a);
+  const numB = Number(b);
 
-module.exports = calculateNumber;
+  if (Number.isNaN(numA) || Number.isNaN(numB)) { throw TypeError; }
+
+  if (type === 'SUM') {
+    return (Math.round(numA) + Math.round(numB));
+  } else if (type === 'SUBTRACT') {
+    return (Math.round(numA) - Math.round(numB));
+  } else if (type === 'DIVIDE') {
+    if (Math.round(numB) === 0) {
+      return ('Error');
+    }
+    return (Math.round(numA) / Math.round(numB));
+  } else {
+    throw TypeError;
+  }
+};
