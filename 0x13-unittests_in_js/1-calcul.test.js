@@ -23,5 +23,7 @@ describe('calculateNumber', () => {
   it('return correct value div', () => {
     assert.strictEqual(calculateNumber('DIVIDE', 1.4, 4.5), 0.2);
   });
-
+  it('return error', () => {
+    assert.strictEqual(calculateNumber('x', 3, 5), undefined);
+  })
 });
