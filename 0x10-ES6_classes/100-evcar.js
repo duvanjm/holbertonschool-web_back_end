@@ -14,4 +14,3 @@ export default class EVCar extends Car {
     return new Car();
   }
 }
-
